@@ -103,7 +103,7 @@ local function AddDoor(packet)
 	end
 	local FoundDoorModule = DoorTypes[packet.reference:GetAttribute("LocalDoorType")]
 	if FoundDoorModule then
-		FoundDoorModule.Init()
+		FoundDoorModule.Init(packet)
 		
 	end
 	

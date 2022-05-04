@@ -2,7 +2,7 @@
 	// FileName: DoorControl.lua
 	// Written by: Jake Baxter
 	// Version v0.1.0
-	// Description: Door control stuff -- SERVER
+	// Description: Door control stuff
 	// Contributors:
 --]]
 
@@ -174,8 +174,11 @@ end
 
 for _,v in pairs(script.Parent:GetDescendants()) do
 	if v:GetAttribute("LocalDoorType") then
-		v.ClickDetector:connect(function()
-			script.SendToClients:Fire({["act"] = "AddDoor", ["reference"] = v, ["doorModuleType"] = v:GetAttribute("DoorModuleType")})
-		end)
+		script.SendToClients:Fire({["act"] = "AddDoor", ["reference"] = v, ["doorModuleType"] = v:GetAttribute("DoorModuleType")})
+		if v:FindFirstChild("ClickDetector") then
+			v.ClickDetector.MouseClick:connect(function()
+				script.SendToClients:Fire({["act"] = "OpenDoor", ["reference"] = v})
+			end)
+		end
 	end
 end
